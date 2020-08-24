@@ -1,0 +1,114 @@
+﻿<Window x:Class="Zadatak_wpf.View.CreatePizzaView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Zadatak_wpf.View"
+        mc:Ignorable="d"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        Title="PanPizza" Background="AntiqueWhite"
+        SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <x:Array Type="sys:String" x:Key="Size">
+            <sys:String>Small</sys:String>
+            <sys:String>Medium</sys:String>
+            <sys:String>Large</sys:String>
+        </x:Array>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="20"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="6"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="6"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="6"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="6"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="6"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="20"/>
+        </Grid.RowDefinitions>
+        
+        <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal">
+            <Label Content="Size:" />
+            <ComboBox Name="cmbPizza" Margin="10,0,0,0" IsEnabled="{Binding CanClose}"
+                      ItemsSource="{StaticResource ResourceKey=Size}"
+                      SelectedItem="{Binding Size, UpdateSourceTrigger=PropertyChanged}" Width="80">
+            </ComboBox>
+        </StackPanel>
+        <StackPanel Grid.Column="1" Grid.Row="3" Orientation="Horizontal">
+            <Label Content="Choose Ingredients:" />
+            <Button 
+                Content="+" IsEnabled="{Binding CanClose}"
+                Command="{Binding AddIngredient}" Width="20">
+                <!--<Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="IsEnabled" Value="False"/>
+                        <Style.Triggers>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding Path=(Validation.HasError), ElementName=txtQuantity}" Value="False"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="IsEnabled" Value="True"/>
+                            </MultiDataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>-->
+            </Button>
+            <Button Content="Confirm" Command="{Binding Confirm}"
+                    IsEnabled="{Binding CanClose}" Width="50" Margin="10,0,0,0">
+            </Button>
+        </StackPanel>
+        <StackPanel Grid.Column="1" Grid.Row="5" Orientation="Horizontal">
+            <Grid>
+                <DataGrid ItemsSource="{Binding IngredientList,UpdateSourceTrigger=PropertyChanged}"
+                SelectedItem="{Binding Ingredient, UpdateSourceTrigger=PropertyChanged}"
+                IsReadOnly="True" 
+                HeadersVisibility="Column"  
+                AutoGenerateColumns="False"
+                  Margin="0,0,150,0">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Added ingredients" Binding="{Binding Mode=OneWay}"/>
+                        <!--<DataGridTemplateColumn>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Content="-" Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, Path=DataContext.RemoveIngredient}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>-->
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </StackPanel>
+        <StackPanel Grid.Row="7" Grid.Column="1" Orientation="Horizontal">
+            <Button 
+                Command="{Binding CalculateAmount}" 
+                Content="Calculate amount" 
+                HorizontalAlignment="Left"
+                Width="110"/>
+            <TextBox Visibility="Visible" Name="txtPrice" Margin="20,0,0,0"
+                     Text="{Binding CurrentPrice}"/>
+        </StackPanel>
+        
+        <Button Grid.Column="1" 
+                Grid.Row="11" 
+                Command="{Binding Close}" 
+                Content="Close" 
+                HorizontalAlignment="Right"
+                Width="80"/>
+        <Button Grid.Column="1" 
+                Grid.Row="9" 
+                Command="{Binding NewOrder}" 
+                Content="New PanPizza" 
+                HorizontalAlignment="Right"
+                Width="80"/>
+    </Grid>
+</Window>
