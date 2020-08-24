@@ -111,7 +111,6 @@ namespace Zadatak_wpf.ViewModel
             try
             {
                 ChooseIngredients chooseIngredients = new ChooseIngredients();
-                createPizzaView.Close();
                 chooseIngredients.ShowDialog();
             }
             catch (Exception ex)
@@ -208,52 +207,98 @@ namespace Zadatak_wpf.ViewModel
             return true;
         }
 
-        // Cancel Button
-        //private ICommand cancel;
-        //public ICommand Cancel
-        //{
-        //    get
-        //    {
-        //        if (cancel == null)
-        //        {
-        //            cancel = new RelayCommand(param => CancelExecute(), param => CanCancelExecute());
-        //        }
-        //        return cancel;
-        //    }
-        //}
-        //private void CancelExecute()
-        //{
-        //    try
-        //    {
-        //        MessageBoxResult result = MessageBox.Show("Are you sure you want to cancel?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
-        //        if (result == MessageBoxResult.Yes)
-        //        {
-        //            if (User.NameAndSurname == "Administrator")
+        // Confirm Button
+        private ICommand confirm;
+        public ICommand Confirm
+        {
+            get
+            {
+                if (confirm == null)
+                {
+                    confirm = new RelayCommand(param => ConfirmExecute(), param => CanConfirmExecute());
+                }
+                return confirm;
+            }
+        }
+        private void ConfirmExecute()
+        {
+            try
+            {
+                IngredientList = Ingredients.ingredientList;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+        private bool CanConfirmExecute()
+        {
+            return true;
+        }
 
-        //            {
-        //                AdminView adminView = new AdminView();
-        //                addRecipe.Close();
-        //                adminView.ShowDialog();
-
-        //            }
-        //            else
-        //            {
-        //                UserView userView = new UserView(users.FindUser(recipe.UserId));
-        //                addRecipe.Close();
-        //                userView.ShowDialog();
-        //            }
-
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show(ex.ToString());
-        //    }
-        //}
-        //private bool CanCancelExecute()
-        //{
-        //    return true;
-        //}
+        //Close Button
+        private ICommand close;
+        public ICommand Close
+        {
+            get
+            {
+                if (close == null)
+                {
+                    close = new RelayCommand(param => CloseExecute(), param => CanCloseExecute());
+                }
+                return close;
+            }
+        }
+        private void CloseExecute()
+        {
+            try
+            {
+                MessageBoxResult result = MessageBox.Show("Are you sure you want to close?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (result == MessageBoxResult.Yes)
+                {
+                    createPizzaView.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+        private bool CanCloseExecute()
+        {
+            return true;
+        }
+        //NewOrder Button
+        private ICommand newOrder;
+        public ICommand NewOrder
+        {
+            get
+            {
+                if (newOrder == null)
+                {
+                    newOrder = new RelayCommand(param => NewOrderExecute(), param => CanNewOrderExecute());
+                }
+                return newOrder;
+            }
+        }
+        private void NewOrderExecute()
+        {
+            try
+            {
+                IngredientList = new ObservableCollection<string>();
+                Size = null;
+                CanClose = true;
+                CurrentPrice = 0;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+        private bool CanNewOrderExecute()
+        {
+            return true;
+        }
         #endregion
     }
 }

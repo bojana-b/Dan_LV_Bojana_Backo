@@ -256,10 +256,8 @@ namespace Zadatak_wpf.ViewModel
                 }
                 Ingredients.ingredientList = allIngredients;
 
-                MessageBox.Show("Intgredients Choosed Successfully! ");
-                CreatePizzaView createPizzaView = new CreatePizzaView();
+                MessageBox.Show("Ingredients selected. \nClick on Confirm button! ");
                 ingredientsView.Close();
-                createPizzaView.ShowDialog();
             }
             catch (Exception ex)
             {

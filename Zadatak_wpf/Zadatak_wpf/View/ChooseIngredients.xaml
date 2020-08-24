@@ -83,10 +83,10 @@
         <CheckBox Grid.Column="2" Grid.Row="8"  IsChecked="{Binding Cheese, UpdateSourceTrigger=PropertyChanged}" 
                   HorizontalAlignment="Center"/>
 
-        <Button Grid.Column="1" Grid.Row="13" Name="btnSave" Content="Confirm" Height="20" Width="70" HorizontalAlignment="Center"
+        <Button Grid.Column="1" Grid.Row="13" Name="btnSave" Content="OK" Height="20" Width="50" HorizontalAlignment="Center"
                 Command="{Binding Save, UpdateSourceTrigger=PropertyChanged}" Margin="5,0,5,0"/>
 
-        <Button Grid.Column="2" Grid.Row="13" Name="btnClose" Content="Close" Height="20" Width="70" HorizontalAlignment="Center"
+        <Button Grid.Column="2" Grid.Row="13" Name="btnClose" Content="Cancel" Height="20" Width="50" HorizontalAlignment="Center"
                 Command="{Binding Close, UpdateSourceTrigger=PropertyChanged}" Margin="5,0,5,0"/>
 
     </Grid>
