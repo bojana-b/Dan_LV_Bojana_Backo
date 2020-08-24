@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Zadatak_wpf.View"
         mc:Ignorable="d"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
-        Title="Add ingredients" Background="AntiqueWhite"
+        Title="PanPizza" Background="AntiqueWhite"
         SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <x:Array Type="sys:String" x:Key="Size">
@@ -39,17 +39,17 @@
         
         <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal">
             <Label Content="Size:" />
-            <ComboBox Name="cmbPizza" Foreground="RosyBrown" Margin="10,0,0,0"
+            <ComboBox Name="cmbPizza" Margin="10,0,0,0" IsEnabled="{Binding CanClose}"
                       ItemsSource="{StaticResource ResourceKey=Size}"
-                      SelectedItem="{Binding Pizza.Size, UpdateSourceTrigger=PropertyChanged}" Width="80">
+                      SelectedItem="{Binding Size, UpdateSourceTrigger=PropertyChanged}" Width="80">
             </ComboBox>
         </StackPanel>
         <StackPanel Grid.Column="1" Grid.Row="3" Orientation="Horizontal">
             <Label Content="Choose Ingredients:" />
             <Button 
-                Content="+" 
+                Content="+" IsEnabled="{Binding CanClose}"
                 Command="{Binding AddIngredient}" Width="20">
-                <Button.Style>
+                <!--<Button.Style>
                     <Style TargetType="Button">
                         <Setter Property="IsEnabled" Value="False"/>
                         <Style.Triggers>
@@ -61,11 +61,10 @@
                             </MultiDataTrigger>
                         </Style.Triggers>
                     </Style>
-                </Button.Style>
+                </Button.Style>-->
             </Button>
         </StackPanel>
         <StackPanel Grid.Column="1" Grid.Row="5" Orientation="Horizontal">
-            <Label Content="Added ingredients:"/>
             <Grid>
                 <DataGrid ItemsSource="{Binding IngredientList,UpdateSourceTrigger=PropertyChanged}"
                 SelectedItem="{Binding Ingredient, UpdateSourceTrigger=PropertyChanged}"
@@ -74,26 +73,30 @@
                 AutoGenerateColumns="False"
                   Margin="0,0,150,0">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Name" Binding="{Binding IngredientName}"/>
-                        <DataGridTemplateColumn>
+                        <DataGridTextColumn Header="Added ingredients" Binding="{Binding Mode=OneWay}"/>
+                        <!--<DataGridTemplateColumn>
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <Button Content="-" Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, Path=DataContext.RemoveIngredient}"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
+                        </DataGridTemplateColumn>-->
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>
         </StackPanel>
-        <Button Grid.Column="1" 
-                Grid.Row="7" 
-                Command="{Binding SaveOrder}" 
-                Content="Save order" 
+        <StackPanel Grid.Row="7" Grid.Column="1" Orientation="Horizontal">
+            <Button 
+                Command="{Binding CalculateAmount}" 
+                Content="Calculate amount" 
                 HorizontalAlignment="Left"
-                Width="120"/>
+                Width="110"/>
+            <TextBox Visibility="Visible" Name="txtPrice" Margin="20,0,0,0"
+                     Text="{Binding CurrentPrice}"/>
+        </StackPanel>
+        
         <Button Grid.Column="1" 
-                Grid.Row="7" 
+                Grid.Row="9" 
                 Command="{Binding CancelOrder}" 
                 Content="Cancel" 
                 HorizontalAlignment="Right"

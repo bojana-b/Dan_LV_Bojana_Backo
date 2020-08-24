@@ -55,6 +55,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\Ingredients.cs" />
+    <Compile Include="ViewModel\ChooseIngredientsViewModel.cs" />
+    <Compile Include="ViewModel\CreatePizzaViewModel.cs" />
+    <Compile Include="ViewModel\ViewModelBase.cs" />
+    <Compile Include="View\ChooseIngredients.xaml.cs">
+      <DependentUpon>ChooseIngredients.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\CreatePizzaView.xaml.cs">
       <DependentUpon>CreatePizzaView.xaml</DependentUpon>
     </Compile>
@@ -71,6 +78,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\ChooseIngredients.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\CreatePizzaView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -102,9 +113,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Model\" />
-    <Folder Include="ViewModel\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
